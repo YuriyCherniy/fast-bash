@@ -1,12 +1,9 @@
-import logging
 from pathlib import Path
 
 import yaml
 from django.http import HttpResponse, Http404
 from django.views import View
 from django.views.generic import TemplateView
-
-logger = logging.getLogger(__name__)
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / 'scripts'
 
@@ -56,7 +53,6 @@ class IndexView(TemplateView):
                 data = load_yaml_script(yaml_path)
             except ValueError as exc:
                 # Один битый файл не должен ронять всю страницу.
-                logger.warning('Skipping broken script metadata: %s', exc)
                 continue
 
             scripts.append({
@@ -97,7 +93,6 @@ class ServeScriptView(View):
         try:
             data = load_yaml_script(yaml_path)
         except ValueError as exc:
-            logger.error("Cannot serve script '%s': %s", filename, exc)
             raise Http404()
 
         content = data['content']
