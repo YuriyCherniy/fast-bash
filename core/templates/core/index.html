@@ -14,7 +14,7 @@
             <div class="input-group mb-1">
                 <input id="s{{ forloop.counter }}" type="text" class="form-control"
                     value="curl -fsSL {{ request.scheme }}://{{ request.get_host }}/scripts/{{ script.name }} | bash{% if script.args %} -s {% endif %}{{ script.args }}">
-                <button class="btn btn-primary" type="button" id="button-addon2"
+                <button class="btn btn-primary" type="button"
                     data-clipboard-target="#s{{ forloop.counter }}">Copy</button>
             </div>
             <small class="text-info"><strong>{{ script.description }}</strong></small>
@@ -31,18 +31,6 @@
 
 <script>
     var clipboard = new ClipboardJS('.btn');
-
-    clipboard.on('success', function (e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
-    });
-
-    clipboard.on('error', function (e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
-    });
 </script>
 {% endblock scripts %}
 
