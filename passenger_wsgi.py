@@ -1,6 +1,17 @@
 import os, sys
+from pathlib import Path
 
-from fast_bash.settings import USER
+import environ
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+env_file = os.path.join(BASE_DIR, '.env')
+environ.Env.read_env(env_file)
+
+USER = env('USER')
 
 
 sys.path.insert(0, f'/var/www/{USER}/data/www/faq-reg.ru/project_name')
