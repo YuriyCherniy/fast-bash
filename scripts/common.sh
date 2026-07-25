@@ -1,8 +1,8 @@
 run() {
   echo "Выполнена команда:"
   echo
-  echo "$*"
+  echo "$@"
   echo "==="
   echo
-  eval "$*"
+  "$@"
 }
