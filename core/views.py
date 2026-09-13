@@ -8,26 +8,9 @@ from django.views.generic import TemplateView
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / 'scripts'
 
 
-def load_yaml_script(yaml_path: Path) -> dict:
-    """Читает и валидирует YAML-файл скрипта.
-
-    Бросает ValueError, если файл повреждён, имеет некорректную
-    структуру или не содержит обязательное поле 'content'.
-    """
-    try:
-        with open(yaml_path, encoding='utf-8') as f:
-            data = yaml.safe_load(f)
-    except yaml.YAMLError as exc:
-        raise ValueError(f"invalid YAML in '{yaml_path.name}': {exc}") from exc
-
-    if not isinstance(data, dict):
-        raise ValueError(
-            f"'{yaml_path.name}' must contain a YAML mapping at the top level"
-        )
-
-    if not data.get('content'):
-        raise ValueError(f"'{yaml_path.name}' is missing required 'content' field")
-
+def load_yaml_script(yaml_path):
+    with open(yaml_path, encoding='utf-8') as f:
+        data = yaml.safe_load(f)
     return data
 
 
@@ -49,18 +32,12 @@ class IndexView(TemplateView):
 
         scripts = []
         for yaml_path in sorted(SCRIPTS_DIR.glob('*.yaml')):
-            try:
-                data = load_yaml_script(yaml_path)
-            except ValueError as exc:
-                # Один битый файл не должен ронять всю страницу.
-                continue
+            data = load_yaml_script(yaml_path)
 
             scripts.append({
                 'name': yaml_path.stem + '.sh',
                 'title': data.get('title') or yaml_path.stem,
                 'description': data.get('description', ''),
-                'author': data.get('author', ''),
-                'version': str(data.get('version', '')),
                 'tags': normalize_tags(data.get('tags')),
                 'args': data.get('args', '')
             })
