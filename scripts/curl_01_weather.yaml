@@ -1,7 +1,7 @@
 title: "Посмотреть погоду"
 description: "Прогноз погоды в терминале через сервис wttr.in"
 author: Yuriy Cherniy
-version: 1.0.2
+version: 1.0.3
 args: ""
 tags:
   - other
