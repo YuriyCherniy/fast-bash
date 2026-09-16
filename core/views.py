@@ -25,7 +25,9 @@ class ServeScriptView(View):
         common_path = SCRIPTS_DIR / 'common.sh'
         if not common_path.is_file():
             return content
-        return content.replace('source common.sh', common_path.read_text(encoding='utf-8'))
+        return content.replace(
+            'source common.sh', common_path.read_text(encoding='utf-8')
+        )
 
     def get(self, request, filename):
         if not filename.endswith('.sh'):
