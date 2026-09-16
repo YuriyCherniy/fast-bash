@@ -3,8 +3,6 @@ description: "Проверка осуществляется с помощью cu
 author: Yuriy Cherniy
 version: 1.0.4
 args: "https://<domain.ru>"
-tags:
-  - network
 content: |
   #!/bin/bash
   set -euo pipefail

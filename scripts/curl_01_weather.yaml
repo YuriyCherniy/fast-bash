@@ -3,8 +3,6 @@ description: "Прогноз погоды в терминале через се�
 author: Yuriy Cherniy
 version: 1.0.3
 args: ""
-tags:
-  - other
 content: |
   #!/bin/bash
   set -euo pipefail
