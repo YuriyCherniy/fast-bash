@@ -1,7 +1,5 @@
 title: "Замерить скорость DNS-резолвинга, TTFB и общее время ответа сервера сайта"
 description: "Проверка осуществляется с помощью curl. URL вводить в формате https://domain.ru"
-author: Yuriy Cherniy
-version: 1.0.4
 args: "https://<domain.ru>"
 content: |
   #!/bin/bash
