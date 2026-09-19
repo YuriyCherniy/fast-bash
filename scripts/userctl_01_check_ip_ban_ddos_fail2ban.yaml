@@ -8,4 +8,4 @@ content: |
   source common.sh
 
   IP="$1"
-  run 
+  run userctl fw list $IP
