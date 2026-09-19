@@ -1,7 +1,7 @@
 
 title: "Проверить IP адрес на бан сервером"
 description: "Выплолняет проверку userctl, лог DDoS и fail2ban"
-args: ""
+args: "<IP>"
 content: |
   #!/bin/bash
   set -euo pipefail
