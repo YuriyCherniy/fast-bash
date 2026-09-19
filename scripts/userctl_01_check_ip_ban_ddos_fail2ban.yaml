@@ -1,0 +1,11 @@
+
+title: "Проверить IP адрес на бан сервером"
+description: "Выплолняет проверку userctl, лог DDoS и fail2ban"
+args: ""
+content: |
+  #!/bin/bash
+  set -euo pipefail
+  source common.sh
+
+  IP="$1"
+  run 
