@@ -8,4 +8,4 @@ content: |
 
   IP="$1"
   run sudo /usr/local/bin/userctl fw list "$IP"
-  run grep "$IP" /var/log/ddos_detect.log
+  run sudo /usr/local/bin/sup_exec grep --color "$IP" /var/log/ddos_detect.log
