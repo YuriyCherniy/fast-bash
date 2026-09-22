@@ -9,14 +9,14 @@ content: |
   IP="$1"
   run sudo /usr/local/bin/userctl fw list "$IP" || true
   echo "====="
-  if run sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/ddos_detect.log; then
-      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/ddos_detect.log | tail -n 5" _ "$IP" || true
+  if sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/ddos_detect.log; then
+      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/ddos_detect.log | tail -n 5" _ "$IP"
   else
       echo "Совпадений в ddos_detect.log не найдено"
   fi
   echo "====="
-  if run sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/fail2ban.log; then
-      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/fail2ban.log | tail -n 5" _ "$IP" || true
+  if sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/fail2ban.log; then
+      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/fail2ban.log | tail -n 5" _ "$IP"
   else
       echo "Совпадений в fail2ban.log не найдено"
   fi
