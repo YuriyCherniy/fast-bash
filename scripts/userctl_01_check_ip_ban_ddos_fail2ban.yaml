@@ -7,20 +7,11 @@ content: |
   source common.sh
 
   IP="$1"
-
-  show_last() {
-    local log="$1"
-    local out
-    out=$(sudo /usr/local/bin/sup_exec grep --color=always -F "$IP" "$log" | tail -n 5 || true)
-    if [ -z "$out" ]; then
-      echo "Совпадений в $(basename "$log") не найдено"
-    else
-      printf '%s\n' "$out"
-    fi
-  }
-
   run sudo /usr/local/bin/userctl fw list "$IP" || true
   echo "====="
-  run show_last /var/log/ddos_detect.log || true
+  if sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/ddos_detect.log; then
+      run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/ddos_detect.log | tail -n 5' _ "$IP" || true
+  else
+      echo "Совпадений в ddos_detect.log не найдено"
   echo "====="
-  run show_last /var/log/fail2ban.log || true
+  run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/fail2ban.log | tail -n 5' _ "$IP" || true
