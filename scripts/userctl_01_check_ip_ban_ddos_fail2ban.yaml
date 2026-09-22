@@ -13,5 +13,6 @@ content: |
       run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/ddos_detect.log | tail -n 5' _ "$IP" || true
   else
       echo "Совпадений в ddos_detect.log не найдено"
+  fi
   echo "====="
   run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/fail2ban.log | tail -n 5' _ "$IP" || true
