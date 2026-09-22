@@ -16,7 +16,7 @@ content: |
   fi
   echo "====="
   if run sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/fail2ban.log; then
-      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$1\" /var/log/fail2ban.log | tail -n 5" _ "$IP" || true
+      run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/fail2ban.log | tail -n 5" _ "$IP" || true
   else
       echo "Совпадений в fail2ban.log не найдено"
   fi
