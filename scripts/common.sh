@@ -5,6 +5,5 @@ run() {
     echo
     echo "Результат:"
     "$@"
-    echo
 }
 
