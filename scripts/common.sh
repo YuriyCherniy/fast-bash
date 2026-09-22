@@ -1,4 +1,5 @@
 run() {
+    echo
     echo "Выполнена команда:"
     echo "$@"
     echo

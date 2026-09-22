@@ -1,5 +1,5 @@
 title: "Проверить IP адрес на бан сервером"
-description: "Выполняет проверку userctl, лог DDoS и fail2ban"
+description: "Выполняет проверку userctl fw list, лог DDoS и fail2ban"
 args: "<IP>"
 content: |
   #!/bin/bash
@@ -8,5 +8,5 @@ content: |
 
   IP="$1"
   run sudo /usr/local/bin/userctl fw list "$IP" || true
-  run sudo /usr/local/bin/sup_exec grep --color -F "$IP" /var/log/ddos_detect.log || true
+  run sudo /usr/local/bin/sup_exec grep --color -F "$IP" /var/log/ddos_detect.log | tail -n5 || true
   run sudo /usr/local/bin/sup_exec grep --color -F "$IP" /var/log/fail2ban.log || true
