@@ -1,9 +1,9 @@
 run() {
     echo "Выполнена команда:"
-    echo
     echo "$@"
     echo
     echo "Результат:"
     "$@"
+    echo
 }
 
