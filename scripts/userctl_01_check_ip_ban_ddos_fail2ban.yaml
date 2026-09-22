@@ -8,5 +8,7 @@ content: |
 
   IP="$1"
   run sudo /usr/local/bin/userctl fw list "$IP" || true
+  echo "====="
   run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/ddos_detect.log | tail -n 5' _ "$IP" || true
+  echo "====="
   run bash -c 'sudo /usr/local/bin/sup_exec grep --color=always -F "$1" /var/log/fail2ban.log | tail -n 5' _ "$IP" || true
