@@ -1,5 +1,6 @@
 .env
 CHANGES.md
 db.sqlite3
-.venv/
+.venv
 __pycache__
+.git
