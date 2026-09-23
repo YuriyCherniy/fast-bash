@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['*']
 
 # Basic auth enforced by Apache (.htaccess). The same credentials are exposed
 # to the index view so the generated curl commands can authenticate.
-BASIC_AUTH_USER = env('BASIC_AUTH_USER', default='')
-BASIC_AUTH_PASSWORD = env('BASIC_AUTH_PASSWORD', default='')
+BASIC_AUTH_USER = env('BASIC_AUTH_USER')
+BASIC_AUTH_PASSWORD = env('BASIC_AUTH_PASSWORD')
 
 
 # Application definition

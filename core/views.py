@@ -13,14 +13,14 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(scripts=[
-            build_script_entry(path)
-            for path in sorted(SCRIPTS_DIR.glob('*.yaml'))
-        ])
-        context['curl_auth'] = ''
-        if settings.BASIC_AUTH_USER and settings.BASIC_AUTH_PASSWORD:
-            creds = f"{settings.BASIC_AUTH_USER}:{settings.BASIC_AUTH_PASSWORD}"
-            context['curl_auth'] = f" -u {shlex.quote(creds)}"
+        creds = f"{settings.BASIC_AUTH_USER}:{settings.BASIC_AUTH_PASSWORD}"
+        context.update(
+            scripts=[
+                build_script_entry(path)
+                for path in sorted(SCRIPTS_DIR.glob('*.yaml'))
+            ],
+            curl_auth=f" -u {shlex.quote(creds)}",
+        )
         return context
 
 
