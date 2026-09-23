@@ -12,5 +12,5 @@ content: |
   if sudo /usr/local/bin/sup_exec grep -q -F "$INPUT" /var/log/addstolendomains; then
       run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$INPUT\" /var/log/addstolendomains | tail -n 10"
   else
-      echo "Совпадений в ddos_detect.log не найдено"
+      echo "Совпадений в /var/log/addstolendomains  не найдено"
   fi

@@ -13,7 +13,7 @@
             <h6 class="text-dark mt-4"><strong>{{ script.title }}:</strong></h6>
             <div class="input-group mb-1">
                 <input id="s{{ forloop.counter }}" type="text" class="form-control form-control-sm"
-                    value="curl -fsSL {{ request.scheme }}://{{ request.get_host }}/scripts/{{ script.name }} | bash{% if script.args %} -s {% endif %}{{ script.args }}">
+                    value="curl -fsSL{{ curl_auth }} {{ request.scheme }}://{{ request.get_host }}/scripts/{{ script.name }} | bash{% if script.args %} -s {% endif %}{{ script.args }}">
                 <button class="btn btn-primary" type="button"
                     data-clipboard-target="#s{{ forloop.counter }}">Copy</button>
             </div>

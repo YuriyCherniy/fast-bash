@@ -1,5 +1,8 @@
+import shlex
+
 from core.utils import SCRIPTS_DIR, read_script, build_script_entry
 
+from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.views import View
 from django.views.generic import TemplateView
@@ -14,6 +17,10 @@ class IndexView(TemplateView):
             build_script_entry(path)
             for path in sorted(SCRIPTS_DIR.glob('*.yaml'))
         ])
+        context['curl_auth'] = ''
+        if settings.BASIC_AUTH_USER and settings.BASIC_AUTH_PASSWORD:
+            creds = f"{settings.BASIC_AUTH_USER}:{settings.BASIC_AUTH_PASSWORD}"
+            context['curl_auth'] = f" -u {shlex.quote(creds)}"
         return context
 
 

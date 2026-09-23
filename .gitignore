@@ -1,4 +1,5 @@
 .env
+.htpasswd
 CHANGES.md
 db.sqlite3
 .venv
