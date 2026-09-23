@@ -6,7 +6,6 @@ content: |
   set -euo pipefail
   source common.sh
 
-  IP="$1"
   IP="${1:?Usage: bash -s IP}"
   run sudo /usr/local/bin/userctl fw list "$IP" || true
   echo "====="
