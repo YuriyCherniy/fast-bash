@@ -1,5 +1,4 @@
-
-title: "Проверить парковку домена на server256"
+title: "Проверить историю парковки домена на server256"
 description: "Выполняет grep по логу /var/log/addstolendomains на server256"
 args: "<domain.ru|u1234567>"
 content: |
