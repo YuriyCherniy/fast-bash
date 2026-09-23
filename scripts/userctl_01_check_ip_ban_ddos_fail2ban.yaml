@@ -14,12 +14,12 @@ content: |
   if sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/ddos_detect.log; then
       run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/ddos_detect.log | tail -n 5"
   else
-      echo "Совпадений в ddos_detect.log не найдено"
+      echo "Совпадений в /var/log/ddos_detect.log не найдено"
   fi
   echo "====="
 
   if sudo /usr/local/bin/sup_exec grep -q -F "$IP" /var/log/fail2ban.log; then
       run bash -c "sudo /usr/local/bin/sup_exec grep --color=always -F \"$IP\" /var/log/fail2ban.log | tail -n 5"
   else
-      echo "Совпадений в fail2ban.log не найдено"
+      echo "Совпадений в /var/log/fail2ban.log не найдено"
   fi
