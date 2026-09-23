@@ -7,4 +7,5 @@ content: |
   source common.sh
 
   DOMAIN="${1:?Usage: bash -s https://domain.ru}"
+
   run curl -o /dev/null -sw "DNS: %{time_namelookup}s\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\n" "$DOMAIN"
