@@ -1,0 +1,9 @@
+title: "Посмотреть погоду"
+description: "Прогноз погоды в терминале через сервис wttr.in"
+args: ""
+content: |
+  #!/bin/bash
+  set -euo pipefail
+  source common.sh
+
+  run curl "https://wttr.in"

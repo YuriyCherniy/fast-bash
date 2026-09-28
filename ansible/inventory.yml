@@ -1,0 +1,11 @@
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+  children:
+    app_servers:
+      hosts:
+        app_server:
+          ansible_user: "{{ vault_hosting_user }}"
+          ansible_host: "{{ vault_hosting_ip }}"

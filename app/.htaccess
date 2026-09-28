@@ -1,0 +1,8 @@
+AuthType Basic
+AuthName "Restricted Area"
+AuthUserFile /var/www/u3586423/data/.htpasswd
+Require valid-user
+
+<FilesMatch "^\.env$">
+    Require all denied
+</FilesMatch>

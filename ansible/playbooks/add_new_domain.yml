@@ -1,0 +1,43 @@
+- name: Add new domain to ispmanager
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    isp_host: "https://{{ vault_hosting_ip }}:1500/ispmgr"
+    isp_user: "{{ vault_hosting_user }}"
+    isp_pass: "{{ vault_hosting_password }}"
+    domain: "{{ vault_hosting_domain_dev }}"
+    email: "{{ vault_hosting_email }}"
+
+  tasks:
+    - name: Create web domain
+      ansible.builtin.uri:
+        url: "{{ isp_host }}"
+        method: POST
+        validate_certs: no
+        timeout: 120
+        body_format: form-urlencoded
+        body:
+          authinfo: "{{ isp_user }}:{{ isp_pass }}"
+          func: webdomain.edit
+          name: "{{ domain }}"
+          email: "{{ email }}"
+          cgi: "on"
+          regru_python: "on"
+          passenger_python_version: "python-3.12"
+          out: xml
+          sok: ok
+        return_content: true
+      register: isp_result
+      failed_when: >
+        isp_result.status != 200
+        or isp_result.content is not defined
+        or isp_result.content is none
+        or 'text/html' in isp_result.content_type
+        or '<error' in isp_result.content | to_json | lower
+        or '"error"' in isp_result.content | to_json | lower
+
+    - name: Show domain form
+      ansible.builtin.debug:
+        var: isp_result.content

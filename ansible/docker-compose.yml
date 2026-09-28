@@ -1,0 +1,8 @@
+services:
+  ansible_tph_runner:
+    build:
+      context: .
+    container_name: tph_runner
+    volumes:
+      - /home/yuriy/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      - ./:/ansible

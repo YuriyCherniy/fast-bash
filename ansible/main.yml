@@ -1,0 +1,4 @@
+- name: Add new domain to ispmanager
+  import_playbook: playbooks/add_new_domain.yml
+  tags:
+    - add_new_domain
