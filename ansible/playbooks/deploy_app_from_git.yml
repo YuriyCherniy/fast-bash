@@ -1,0 +1,33 @@
+- name: Deliver app code from git repository
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    user: "{{ vault_hosting_user }}"
+    domain: "{{ vault_hosting_domain }}"
+    repo_url: "https://github.com/YuriyCherniy/fast-bash.git"
+    repo_version: "dev"
+    repo_path: "/var/www/{{ user }}/data/fast_bash_repo"
+    app_path: "/var/www/{{ user }}/data/www/{{ domain }}/fast_bash"
+
+  tasks:
+    - name: Clone/update app repository
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ repo_path }}"
+        version: "{{ repo_version }}"
+        force: yes
+        depth: 1
+        single_branch: yes
+
+    - name: Sync app/ contents into application directory
+      ansible.builtin.copy:
+        src: "{{ repo_path }}/app/"
+        dest: "{{ app_path }}/"
+        remote_src: yes
+
+    - name: Ensure tmp dir exists and restart Passenger
+      ansible.builtin.file:
+        path: "{{ app_path }}/tmp/restart.txt"
+        state: touch
+        mode: "0644"
