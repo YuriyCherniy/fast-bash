@@ -6,6 +6,6 @@ all:
   children:
     app_servers:
       hosts:
-        app_server:
+        web-01:
           ansible_user: "{{ vault_hosting_user }}"
           ansible_host: "{{ vault_hosting_ip }}"
