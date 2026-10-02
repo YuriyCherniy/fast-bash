@@ -39,11 +39,6 @@
         path: "{{ app_path }}/passenger_wsgi.py"
         state: absent
 
-    - name: Collect static files
-      ansible.builtin.command:
-        cmd: "{{ app_path }}/manage.py collectstatic --noinput"
-        chdir: "{{ app_path }}"
-
     - name: Touch restart.txt in domain root to restart Passenger
       ansible.builtin.file:
         path: "{{ domain_root }}/restart.txt"
