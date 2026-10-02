@@ -28,6 +28,11 @@
   tags:
     - create_dot_env_file
 
+- name: Collect static files for the app
+  import_playbook: playbooks/collect_static.yml
+  tags:
+    - collect_static
+
 - name: Set up basic auth for the app
   import_playbook: playbooks/set_up_basic_auth.yml
   tags:
