@@ -1,0 +1,12 @@
+- name: Create python virtual environment
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    user: "{{ vault_hosting_user }}"
+  
+  tasks:
+    - name: Create python venv
+      ansible.builtin.command:
+        cmd: /opt/python/python-3.12/bin/python -m venv /var/www/{{ user }}/data/.venv
+        creates: /var/www/{{ user }}/data/.venv/bin/activate

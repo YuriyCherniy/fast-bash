@@ -1,0 +1,27 @@
+- name: Create .env file for the app
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    domain: "{{ vault_hosting_domain }}"
+    hosting_user: "{{ vault_hosting_user }}"
+    app_env_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash/.env
+    secret_key: "{{ vault_django_secret_key }}"
+    app_debug: "true"
+
+  tasks:
+    - name: Ensure the app directory exists
+      ansible.builtin.file:
+        path: "{{ app_env_path | dirname }}"
+        state: directory
+
+    - name: Create .env file from vault data
+      no_log: true
+      ansible.builtin.copy:
+        dest: "{{ app_env_path }}"
+        content: |
+          SECRET_KEY={{ secret_key }}
+          DEBUG={{ app_debug }}
+          BASIC_AUTH_USER={{ vault_basic_auth_user }}
+          BASIC_AUTH_PASSWORD={{ vault_basic_auth_password }}
+        mode: "0600"

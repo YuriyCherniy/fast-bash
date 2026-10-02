@@ -1,0 +1,30 @@
+- name: Set up HTTP basic auth for the app
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    hosting_user: "{{ vault_hosting_user }}"
+    htpasswd_path: "/var/www/{{ hosting_user }}/data/.htpasswd"
+    htaccess_path: "/var/www/{{ hosting_user }}/data/www/{{ vault_hosting_domain }}/.htaccess"
+    bcrypt_salt: "{{ (hosting_user ~ '-' ~ vault_hosting_domain) | hash('sha1') | truncate(22, true, '') }}"
+
+  tasks:
+    - name: Create .htpasswd with the basic auth credentials from the vault
+      ansible.builtin.copy:
+        dest: "{{ htpasswd_path }}"
+        content: "{{ vault_basic_auth_user }}:{{ vault_basic_auth_password | password_hash(hashtype='bcrypt', ident='2y', rounds=12, salt=bcrypt_salt) }}\n"
+        mode: "0600"
+
+    - name: Create .htaccess pointing to the generated .htpasswd
+      ansible.builtin.copy:
+        dest: "{{ htaccess_path }}"
+        content: |
+          AuthType Basic
+          AuthName "Restricted Area"
+          AuthUserFile {{ htpasswd_path }}
+          Require valid-user
+
+          <FilesMatch "^\.env$">
+              Require all denied
+          </FilesMatch>
+        mode: "0644"

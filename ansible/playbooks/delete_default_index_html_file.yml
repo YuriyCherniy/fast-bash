@@ -1,0 +1,14 @@
+- name: Delete default index.html created by ispmanager
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    domain: "{{ vault_hosting_domain }}"
+    hosting_user: "{{ vault_hosting_user }}"
+    index_html_path:  "/var/www/{{ hosting_user }}/data/www/{{ domain }}/index.html"
+    
+  tasks:
+    - name: Delete index.html file
+      ansible.builtin.file:
+        path: "{{ index_html_path }}"
+        state: absent

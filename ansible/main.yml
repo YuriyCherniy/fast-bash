@@ -2,3 +2,28 @@
   import_playbook: playbooks/add_new_domain.yml
   tags:
     - add_new_domain
+
+- name: Delete index.html file
+  import_playbook: playbooks/delete_default_index_html_file.yml
+  tags:
+    - delete_index_file
+
+- name: Create python environment
+  import_playbook: playbooks/create_python_venv.yml
+  tags:
+    - create_python_venv
+
+- name: Install the app requirements
+  import_playbook: playbooks/install_python_requirements.yml
+  tags:
+    - install_python_requirements
+
+- name: Create .env file for app
+  import_playbook: playbooks/create_dot_env_file.yml
+  tags:
+    - create_dot_env_file
+
+- name: Set up basic auth for the app
+  import_playbook: playbooks/set_up_basic_auth.yml
+  tags:
+    - set_up_basic_auth
