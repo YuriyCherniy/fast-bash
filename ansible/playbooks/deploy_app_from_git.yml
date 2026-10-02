@@ -9,6 +9,7 @@
     repo_version: "dev"
     repo_path: "/var/www/{{ user }}/data/fast_bash_repo"
     app_path: "/var/www/{{ user }}/data/www/{{ domain }}/fast_bash"
+    domain_root: "/var/www/{{ user }}/data/www/{{ domain }}"
 
   tasks:
     - name: Clone/update app repository
@@ -26,8 +27,8 @@
         dest: "{{ app_path }}/"
         remote_src: yes
 
-    - name: Touch restart.txt in project root to restart Passenger
+    - name: Touch restart.txt in domain root to restart Passenger
       ansible.builtin.file:
-        path: "{{ app_path }}/restart.txt"
+        path: "{{ domain_root }}/restart.txt"
         state: touch
         mode: "0644"
