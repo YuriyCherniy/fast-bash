@@ -7,7 +7,7 @@
     isp_host: "https://{{ vault_hosting_ip }}:1500/ispmgr"
     isp_user: "{{ vault_hosting_user }}"
     isp_pass: "{{ vault_hosting_password }}"
-    domain: "{{ vault_hosting_domain_dev }}"
+    domain: "{{ vault_hosting_domain }}"
     email: "{{ vault_hosting_email }}"
 
   tasks:
@@ -31,13 +31,14 @@
         return_content: true
       register: isp_result
       failed_when: >
-        isp_result.status != 200
-        or isp_result.content is not defined
-        or isp_result.content is none
-        or 'text/html' in isp_result.content_type
-        or '<error' in isp_result.content | to_json | lower
-        or '"error"' in isp_result.content | to_json | lower
+        not (isp_result.content | default('') | lower | regex_search('<ok|type="exists"'))
+
+    - name: Report that the domain already exists
+      ansible.builtin.debug:
+        msg: "Domain '{{ domain }}' already exists in ispmanager - nothing to create, continuing."
+      when: isp_result.content is search('type="exists"')
 
     - name: Show domain form
       ansible.builtin.debug:
         var: isp_result.content
+      when: isp_result.content is search('<ok')
