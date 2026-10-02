@@ -26,8 +26,8 @@
         dest: "{{ app_path }}/"
         remote_src: yes
 
-    - name: Ensure tmp dir exists and restart Passenger
+    - name: Touch restart.txt in project root to restart Passenger
       ansible.builtin.file:
-        path: "{{ app_path }}/tmp/restart.txt"
+        path: "{{ app_path }}/restart.txt"
         state: touch
         mode: "0644"
