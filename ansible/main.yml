@@ -14,9 +14,9 @@
     - create_python_venv
 
 - name: Install the app requirements
-  import_playbook: playbooks/install_python_requirements.yml
+  import_playbook: playbooks/install_app_requirements.yml
   tags:
-    - install_python_requirements
+    - install_app_requirements
 
 - name: Create .env file for app
   import_playbook: playbooks/create_dot_env_file.yml
