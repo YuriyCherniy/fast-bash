@@ -13,6 +13,11 @@
   tags:
     - create_python_venv
 
+- name: Deliver app code from git
+  import_playbook: playbooks/deploy_app_from_git.yml
+  tags:
+    - deploy_app
+
 - name: Install the app requirements
   import_playbook: playbooks/install_app_requirements.yml
   tags:
@@ -27,8 +32,3 @@
   import_playbook: playbooks/set_up_basic_auth.yml
   tags:
     - set_up_basic_auth
-
-- name: Deliver app code from git
-  import_playbook: playbooks/deploy_app_from_git.yml
-  tags:
-    - deploy_app

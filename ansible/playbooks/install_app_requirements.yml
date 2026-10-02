@@ -4,8 +4,10 @@
 
   vars:
     hosting_user: "{{ vault_hosting_user }}"
+    domain: "{{ vault_hosting_domain }}"
     venv_path: /var/www/{{ hosting_user }}/data/.venv
-    requirements_path: "{{ playbook_dir }}/../app/requirements.txt"
+    app_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash
+    requirements_path: "{{ app_path }}/requirements.txt"
 
   tasks:
     - name: Install the app requirements into the venv
