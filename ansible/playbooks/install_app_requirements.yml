@@ -8,9 +8,15 @@
     venv_path: /var/www/{{ hosting_user }}/data/.venv
     app_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash
     requirements_path: "{{ app_path }}/requirements.txt"
+    python_major: "3.12"
 
   tasks:
-    - name: Install the app requirements into the venv
-      ansible.builtin.pip:
-        requirements: "{{ requirements_path }}"
-        virtualenv: "{{ venv_path }}"
+    - name: Install packaging library into the venv
+      ansible.builtin.command:
+        cmd: "{{ venv_path }}/bin/pip install packaging"
+        creates: "{{ venv_path }}/lib/python{{ python_major }}/site-packages/packaging/__init__.py"
+
+    - name: Install app requirements into the venv
+      ansible.builtin.command:
+        cmd: "{{ venv_path }}/bin/pip install -r {{ requirements_path }}"
+        creates: "{{ venv_path }}/lib/python{{ python_major }}/site-packages/django/__init__.py"
