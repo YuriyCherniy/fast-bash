@@ -38,7 +38,7 @@
   tags:
     - collect_static
 
-- name: Set up passengerwsgi
+- name: Set up passenger wsgi
   import_playbook: playbooks/set_up_passenger_wsgi_py.yml
   tags:
     - set_up_passenger
