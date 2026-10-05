@@ -26,3 +26,8 @@
         src: "{{ repo_path }}/app/"
         dest: "{{ app_path }}/"
         remote_src: yes
+
+    - name: Delete repo_path folder
+      ansible.builtin.file:
+        path: "{{ repo_path }}"
+        state: "absent"
