@@ -25,6 +25,8 @@
 </div>
 {% endif %}
 
+{% endblock content %}
+
 {% block scripts %}
 {{ block.super }}
 <script src="{% static 'clipboard.mini.js' %}"></script>
@@ -33,5 +35,3 @@
     var clipboard = new ClipboardJS('.btn');
 </script>
 {% endblock scripts %}
-
-{% endblock content %}
