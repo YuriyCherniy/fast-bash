@@ -1,3 +1,4 @@
 Django==5.2.16
 PyYAML==6.0.3
 django-environ==0.14.0
+whitenoise==6.12.0
