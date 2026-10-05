@@ -33,7 +33,8 @@
   tags:
     - collect_static
 
-- name: Set up basic auth for the app
-  import_playbook: playbooks/set_up_basic_auth.yml
+- name: Set up passengerwsgi
+  import_playbook: playbooks/set_up_passenger_wsgi_py.yml
   tags:
-    - set_up_basic_auth
+    - set_up_passenger
+

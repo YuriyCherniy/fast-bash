@@ -1,0 +1,4 @@
+- name: Set up passenger wsgi from jinja2 template
+  hosts: app_servers
+  roles:
+    - role: set_up_passenger_wsgi

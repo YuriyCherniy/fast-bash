@@ -1,0 +1,5 @@
+- name: Set up passenger wsgi from jinja2 template
+  ansible.builtin.template:
+    src: "passenger_wsgi.py.j2"
+    dest: "{{ domain_root }}/passenger_wsgi.py"
+    mode: "644"

@@ -26,21 +26,3 @@
         src: "{{ repo_path }}/app/"
         dest: "{{ app_path }}/"
         remote_src: yes
-
-    - name: Deploy passenger_wsgi.py into domain root
-      ansible.builtin.copy:
-        src: "{{ repo_path }}/app/passenger_wsgi.py"
-        dest: "{{ domain_root }}/passenger_wsgi.py"
-        remote_src: yes
-        mode: "0644"
-
-    - name: Remove passenger_wsgi.py duplicate from app subdir
-      ansible.builtin.file:
-        path: "{{ app_path }}/passenger_wsgi.py"
-        state: absent
-
-    - name: Touch restart.txt in domain root to restart Passenger
-      ansible.builtin.file:
-        path: "{{ domain_root }}/restart.txt"
-        state: touch
-        mode: "0644"
