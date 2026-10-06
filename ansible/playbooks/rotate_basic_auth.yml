@@ -1,0 +1,40 @@
+- name: Rotate basic auth password from the vault
+  hosts: app_servers
+  gather_facts: no
+
+  vars:
+    hosting_user: "{{ vault_hosting_user }}"
+    domain: "{{ vault_hosting_domain }}"
+    htpasswd_path: "/var/www/{{ hosting_user }}/data/.htpasswd"
+    app_env_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash/.env"
+    restart_file_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/restart.txt"
+    bcrypt_salt: "{{ (hosting_user ~ '-' ~ domain) | hash('sha1') | truncate(22, true, '') }}"
+
+  tasks:
+    - name: Ensure the app directory exists
+      ansible.builtin.file:
+        path: "{{ app_env_path | dirname }}"
+        state: directory
+
+    - name: Rewrite .htpasswd with the new password from the vault
+      no_log: true
+      ansible.builtin.copy:
+        dest: "{{ htpasswd_path }}"
+        content: "{{ vault_basic_auth_user }}:{{ vault_basic_auth_password | password_hash(hashtype='bcrypt', ident='2y', rounds=12, salt=bcrypt_salt) }}\n"
+        mode: "0600"
+
+    - name: Rewrite .env with the new password from the vault
+      no_log: true
+      ansible.builtin.copy:
+        dest: "{{ app_env_path }}"
+        content: |
+          SECRET_KEY={{ vault_django_secret_key }}
+          DEBUG=true
+          BASIC_AUTH_USER={{ vault_basic_auth_user }}
+          BASIC_AUTH_PASSWORD={{ vault_basic_auth_password }}
+        mode: "0600"
+
+    - name: Restart the passenger app so Django reloads the new .env
+      ansible.builtin.file:
+        path: "{{ restart_file_path }}"
+        state: touch
