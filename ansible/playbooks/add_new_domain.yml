@@ -5,10 +5,6 @@
 
   vars:
     isp_host: "https://{{ vault_hosting_ip }}:1500/ispmgr"
-    isp_user: "{{ vault_hosting_user }}"
-    isp_pass: "{{ vault_hosting_password }}"
-    domain: "{{ vault_hosting_domain }}"
-    email: "{{ vault_hosting_email }}"
 
   tasks:
     - name: Create web domain
@@ -19,10 +15,10 @@
         timeout: 120
         body_format: form-urlencoded
         body:
-          authinfo: "{{ isp_user }}:{{ isp_pass }}"
+          authinfo: "{{ vault_hosting_user }}:{{ vault_hosting_password }}"
           func: webdomain.edit
-          name: "{{ domain }}"
-          email: "{{ email }}"
+          name: "{{ vault_hosting_domain }}"
+          email: "{{ vault_hosting_email }}"
           cgi: "on"
           regru_python: "on"
           passenger_python_version: "python-3.12"
@@ -35,7 +31,7 @@
 
     - name: Report that the domain already exists
       ansible.builtin.debug:
-        msg: "Domain '{{ domain }}' already exists in ispmanager - nothing to create, continuing."
+        msg: "Domain '{{ vault_hosting_domain }}' already exists in ispmanager - nothing to create, continuing."
       when: isp_result.content is search('type="exists"')
 
     - name: Show domain form
