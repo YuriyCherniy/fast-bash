@@ -2,7 +2,7 @@ docker compose build
 
 docker compose run --rm ansible_tph_runner ansible all -m ping
 
- docker compose run --rm ansible_tph_runner ansible-vault create vault.yml
+docker compose run --rm ansible_tph_runner ansible-vault create vault.yml
 
 Example of vault.yml content:
 
