@@ -8,6 +8,7 @@
     app_env_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash/.env
     secret_key: "{{ vault_django_secret_key }}"
     django_debug: "{{ vault_django_debug }}"
+    allowed_hosts: "{{ vault_hosting_domain }}"
 
   tasks:
     - name: Ensure the app directory exists
@@ -22,6 +23,7 @@
         content: |
           SECRET_KEY={{ secret_key }}
           DEBUG={{ django_debug }}
+          ALLOWED_HOSTS={{ allowed_hosts }}
           BASIC_AUTH_USER={{ vault_basic_auth_user }}
           BASIC_AUTH_PASSWORD={{ vault_basic_auth_password }}
         mode: "0600"
