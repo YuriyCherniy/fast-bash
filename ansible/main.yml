@@ -6,7 +6,7 @@
 - name: Set up basic auth for the app
   import_playbook: playbooks/set_up_basic_auth.yml
   tags:
-    - set_up_basic_authj
+    - set_up_basic_auth
 
 - name: Delete index.html file
   import_playbook: playbooks/delete_default_index_html_file.yml
