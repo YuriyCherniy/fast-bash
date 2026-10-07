@@ -9,6 +9,7 @@
     secret_key: "{{ vault_django_secret_key }}"
     django_debug: "{{ vault_django_debug }}"
     allowed_hosts: "{{ vault_hosting_domain }}"
+    restart_file_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/restart.txt"
 
   tasks:
     - name: Ensure the app directory exists
@@ -27,3 +28,8 @@
           BASIC_AUTH_USER={{ vault_basic_auth_user }}
           BASIC_AUTH_PASSWORD={{ vault_basic_auth_password }}
         mode: "0600"
+
+    - name: Restart the passenger app so Django reloads the new .env
+      ansible.builtin.file:
+        path: "{{ restart_file_path }}"
+        state: touch
