@@ -5,6 +5,7 @@
   vars:
     hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
+    django_debug: "{{ vault_django_debug }}"
     htpasswd_path: "/var/www/{{ hosting_user }}/data/.htpasswd"
     app_env_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash/.env"
     restart_file_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/restart.txt"
@@ -29,7 +30,7 @@
         dest: "{{ app_env_path }}"
         content: |
           SECRET_KEY={{ vault_django_secret_key }}
-          DEBUG=true
+          DEBUG={{ django_debug }}
           BASIC_AUTH_USER={{ vault_basic_auth_user }}
           BASIC_AUTH_PASSWORD={{ vault_basic_auth_password }}
         mode: "0600"
