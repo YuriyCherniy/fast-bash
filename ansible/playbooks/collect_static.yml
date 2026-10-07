@@ -3,10 +3,10 @@
   gather_facts: no
 
   vars:
-    user: "{{ vault_hosting_user }}"
+    hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
-    venv_path: /var/www/{{ user }}/data/.venv
-    app_path: /var/www/{{ user }}/data/www/{{ domain }}/fast_bash
+    venv_path: /var/www/{{ hosting_user }}/data/.venv
+    app_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash
 
   tasks:
     - name: Run collectstatic with app venv python

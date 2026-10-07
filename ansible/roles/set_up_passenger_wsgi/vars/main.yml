@@ -1,3 +1,3 @@
-user: "{{ vault_hosting_user }}"
+hosting_user: "{{ vault_hosting_user }}"
 domain: "{{ vault_hosting_domain }}"
-domain_root: "/var/www/{{ user }}/data/www/{{ domain }}"
+domain_root: "/var/www/{{ hosting_user }}/data/www/{{ domain }}"

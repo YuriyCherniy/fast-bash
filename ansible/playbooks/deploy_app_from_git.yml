@@ -3,13 +3,13 @@
   gather_facts: no
 
   vars:
-    user: "{{ vault_hosting_user }}"
+    hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
     repo_url: "https://github.com/YuriyCherniy/fast-bash.git"
     repo_version: "dev"
-    repo_path: "/var/www/{{ user }}/data/fast_bash_repo"
-    app_path: "/var/www/{{ user }}/data/www/{{ domain }}/fast_bash"
-    domain_root: "/var/www/{{ user }}/data/www/{{ domain }}"
+    repo_path: "/var/www/{{ hosting_user }}/data/fast_bash_repo"
+    app_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash"
+    domain_root: "/var/www/{{ hosting_user }}/data/www/{{ domain }}"
 
   tasks:
     - name: Clone/update app repository
