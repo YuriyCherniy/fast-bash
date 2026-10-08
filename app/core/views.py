@@ -1,6 +1,6 @@
 import shlex
 
-from core.utils import SCRIPTS_DIR, read_script, build_script_entry
+from core.utils import SCRIPTS_DIR, read_script, build_script_entry, iter_script_files
 
 from django.conf import settings
 from django.http import HttpResponse, Http404
@@ -17,7 +17,7 @@ class IndexView(TemplateView):
         context.update(
             scripts=[
                 build_script_entry(path)
-                for path in sorted(SCRIPTS_DIR.glob('*.yaml'))
+                for path in iter_script_files()
             ],
             curl_auth=f" -u {shlex.quote(creds)}",
         )
@@ -40,11 +40,16 @@ class ServeScriptView(View):
         if not filename.endswith('.sh'):
             raise Http404()
 
-        yaml_path = SCRIPTS_DIR / (filename.removesuffix('.sh') + '.yaml')
+        yaml_path = None
+        for ext in ('.yml', '.yaml'):
+            candidate = SCRIPTS_DIR / (filename.removesuffix('.sh') + ext)
+            if candidate.resolve().parent != SCRIPTS_DIR.resolve():
+                raise Http404()
+            if candidate.is_file():
+                yaml_path = candidate
+                break
 
-        if yaml_path.resolve().parent != SCRIPTS_DIR.resolve():
-            raise Http404()
-        if not yaml_path.is_file():
+        if yaml_path is None:
             raise Http404()
 
         data = read_script(yaml_path)
