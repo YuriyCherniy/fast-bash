@@ -5,10 +5,10 @@
   vars:
     hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
-    repo_url: "https://github.com/YuriyCherniy/fast-bash.git"
+    repo_url: "https://github.com/YuriyCherniy/lazy-bash.git"
     repo_version: "dev"
-    repo_path: "/var/www/{{ hosting_user }}/data/fast_bash_repo"
-    app_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash"
+    repo_path: "/var/www/{{ hosting_user }}/data/lazy_bash_repo"
+    app_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/lazy_bash"
     domain_root: "/var/www/{{ hosting_user }}/data/www/{{ domain }}"
 
   tasks:

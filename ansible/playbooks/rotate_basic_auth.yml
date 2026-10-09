@@ -6,7 +6,7 @@
     hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
     htpasswd_path: "/var/www/{{ hosting_user }}/data/.htpasswd"
-    app_env_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash/.env"
+    app_env_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/lazy_bash/.env"
     restart_file_path: "/var/www/{{ hosting_user }}/data/www/{{ domain }}/.restart-app"
     bcrypt_salt: "{{ (hosting_user ~ '-' ~ domain) | hash('sha1') | truncate(22, true, '') }}"
 

@@ -6,7 +6,7 @@
     hosting_user: "{{ vault_hosting_user }}"
     domain: "{{ vault_hosting_domain }}"
     venv_path: /var/www/{{ hosting_user }}/data/.venv
-    app_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/fast_bash
+    app_path: /var/www/{{ hosting_user }}/data/www/{{ domain }}/lazy_bash
 
   tasks:
     - name: Run collectstatic with app venv python

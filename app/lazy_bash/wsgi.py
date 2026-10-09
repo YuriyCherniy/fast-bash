@@ -1,5 +1,5 @@
 """
-WSGI config for fast_bash project.
+WSGI config for lazy_bash project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fast_bash.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lazy_bash.settings')
 
 application = get_wsgi_application()
