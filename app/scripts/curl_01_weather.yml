@@ -1,6 +1,8 @@
 title: "Посмотреть погоду"
 description: "Прогноз погоды в терминале через сервис wttr.in"
 args: ""
+version: 1.0.0
+author: "Yuriy Cherniy"
 content: |
   #!/bin/bash
   set -euo pipefail
